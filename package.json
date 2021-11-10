@@ -1,7 +1,7 @@
 {
-  "name": "react-google-recaptcha",
+  "name": "react-google-recaptcha-hcaptcha",
   "version": "3.0.0-alpha.1",
-  "description": "React Component Wrapper for Google reCAPTCHA",
+  "description": "React Component Wrapper for Google reCAPTCHA and hCaptcha",
   "main": "lib/index.js",
   "module": "lib/esm/index.js",
   "directories": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dozoisch/react-google-recaptcha.git"
+    "url": "https://github.com/fabiansellmann/react-google-recaptcha-hcaptcha.git"
   },
   "keywords": [
     "react",
@@ -28,12 +28,12 @@
     "recaptcha",
     "google-recaptcha"
   ],
-  "author": "Hugo Dozois <hugo@dozoisch.com>",
+  "author": "Fabian Sellmann <fa.sllmnn@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dozoisch/react-google-recaptcha/issues"
+    "url": "https://github.com/fabiansellmann/react-google-recaptcha-hcaptcha"
   },
-  "homepage": "https://github.com/dozoisch/react-google-recaptcha",
+  "homepage": "https://github.com/fabiansellmann/react-google-recaptcha-hcaptcha",
   "peerDependencies": {
     "react": ">=16.4.1"
   },
@@ -53,7 +53,6 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "prop-types": "^15.5.0",
-    "react-async-script": "^1.2.0"
+    "prop-types": "^15.5.0"
   }
 }

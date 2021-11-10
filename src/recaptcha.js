@@ -1,5 +1,5 @@
-import * as React from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import * as React from 'react';
 
 export default class ReCAPTCHA extends React.Component {
   constructor() {
@@ -138,6 +138,7 @@ export default class ReCAPTCHA extends React.Component {
       badge,
       hl,
       isolated,
+      provider,
       ...childProps
     } = this.props;
     /* eslint-enable no-unused-vars */
@@ -160,9 +161,10 @@ ReCAPTCHA.propTypes = {
   hl: PropTypes.string,
   badge: PropTypes.oneOf(["bottomright", "bottomleft", "inline"]),
   isolated: PropTypes.bool,
+  provider: PropTypes.oneOf(["recaptcha", "hcaptcha"])
 };
 ReCAPTCHA.defaultProps = {
-  onChange: () => {},
+  onChange: () => { },
   theme: "light",
   type: "image",
   tabindex: 0,

@@ -1,10 +1,7 @@
-# react-google-recaptcha
+# react-google-recaptcha-hcaptcha
 
-[![Build Status][ci.img]][ci.url] [![npm version][npm.img]][npm.url] [![npm downloads][npm.dl.img]][npm.dl.url]
-
-[![Edit react-google-recaptcha example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/1y4zzjq37l)
-
-React component for [Google reCAPTCHA v2][reCAPTCHA].
+Quick fork of https://github.com/dozoisch/react-google-recaptcha to allow to use this component with h captcha aswell. Which is supposed to be a drop-in replacement for googles recaptcha.
+So if you are already using the `RECaptcha` component, just replace it with this library and add `provider="hcaptcha"` prop, to have it use the hcaptcha URL instead of the google/recaptcha one.
 
 ## Installation
 
@@ -20,7 +17,7 @@ The default usage imports a wrapped component that loads the google recaptcha sc
 
 Code Example:
 ```jsx
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha-hcaptcha";
 
 function onChange(value) {
   console.log("Captcha value:", value);
@@ -97,7 +94,7 @@ See the [reCAPTCHA documentation](https://developers.google.com/recaptcha/docs/i
 With the invisible option, you need to handle things a bit differently. You will need to call the `execute` method yourself.
 
 ```jsx
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha-hcaptcha";
 
 const recaptchaRef = React.createRef();
 
@@ -117,7 +114,7 @@ ReactDOM.render(
 Additionally, you can use the `executeAsync` method to use a promise based approach.
 
 ```jsx
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha-hcaptcha";
 
 
 const ReCAPTCHAForm = (props) => {
@@ -174,7 +171,7 @@ window.recaptchaOptions = {
 You can also use the barebone components doing the following. Using that component will oblige you to manage the grecaptcha dep and load the script by yourself.
 
 ```jsx
-import { ReCAPTCHA } from "react-google-recaptcha";
+import { ReCAPTCHA } from "react-google-recaptcha-hcaptcha";
 
 const grecaptchaObject = window.grecaptcha // You must provide access to the google grecaptcha object.
 
