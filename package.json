@@ -1,6 +1,6 @@
 {
   "name": "react-google-recaptcha-hcaptcha",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Component Wrapper for Google reCAPTCHA and hCaptcha",
   "main": "lib/index.js",
   "module": "lib/esm/index.js",
@@ -25,7 +25,8 @@
     "react",
     "react-component",
     "captcha",
-    "recaptcha",    "google-recaptcha"
+    "recaptcha",
+    "google-recaptcha"
   ],
   "author": "Fabian Sellmann <fa.sllmnn@gmail.com>",
   "license": "MIT",
