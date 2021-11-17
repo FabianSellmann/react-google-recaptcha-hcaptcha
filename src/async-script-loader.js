@@ -9,8 +9,8 @@ let SCRIPT_MAP = {};
 // A counter used to generate a unique id for each component that uses the function
 let idCount = 0;
 
-export default function makeAsyncScript(getScriptURL, options) {
-  options = options || {};
+export default function makeAsyncScript(getScriptURL, getOptions) {
+
   return function wrapWithAsyncScript(WrappedComponent) {
     const wrappedComponentName =
       WrappedComponent.displayName || WrappedComponent.name || "Component";
@@ -18,10 +18,10 @@ export default function makeAsyncScript(getScriptURL, options) {
     class AsyncScriptLoader extends Component {
       constructor(props, context) {
         super(props, context);
+        this.options = getOptions(props);
         this.state = {};
         this.__scriptURL = "";
       }
-
       asyncScriptLoaderGetScriptLoaderID() {
         if (!this.__scriptLoaderID) {
           this.__scriptLoaderID = "async-script-loader-" + idCount++;
@@ -57,7 +57,7 @@ export default function makeAsyncScript(getScriptURL, options) {
           observer(mapEntry);
           return true;
         });
-        delete window[options.callbackName];
+        delete window[this.options.callbackName];
       }
 
       callObserverFuncAndRemoveObserver(mapEntry, func) {
@@ -75,7 +75,7 @@ export default function makeAsyncScript(getScriptURL, options) {
       componentDidMount() {
         const scriptURL = this.setupScriptURL();
         const key = this.asyncScriptLoaderGetScriptLoaderID();
-        const { globalName, callbackName, scriptId } = options;
+        const { globalName, callbackName, scriptId } = this.options;
 
         // check if global object already attached to window
         if (globalName && typeof window[globalName] !== "undefined") {
@@ -113,8 +113,8 @@ export default function makeAsyncScript(getScriptURL, options) {
         script.src = scriptURL;
         script.async = true;
 
-        for (let attribute in options.attributes) {
-          script.setAttribute(attribute, options.attributes[attribute]);
+        for (let attribute in this.options.attributes) {
+          script.setAttribute(attribute, this.options.attributes[attribute]);
         }
 
         if (scriptId) {
@@ -156,7 +156,7 @@ export default function makeAsyncScript(getScriptURL, options) {
       componentWillUnmount() {
         // Remove tag script
         const scriptURL = this.__scriptURL;
-        if (options.removeOnUnmount === true) {
+        if (this.options.removeOnUnmount === true) {
           const allScripts = document.getElementsByTagName("script");
           for (let i = 0; i < allScripts.length; i += 1) {
             if (allScripts[i].src.indexOf(scriptURL) > -1) {
@@ -170,14 +170,14 @@ export default function makeAsyncScript(getScriptURL, options) {
         let mapEntry = SCRIPT_MAP[scriptURL];
         if (mapEntry) {
           delete mapEntry.observers[this.asyncScriptLoaderGetScriptLoaderID()];
-          if (options.removeOnUnmount === true) {
+          if (this.options.removeOnUnmount === true) {
             delete SCRIPT_MAP[scriptURL];
           }
         }
       }
 
       render() {
-        const globalName = options.globalName;
+        const globalName = this.options.globalName;
         // remove asyncScriptOnLoad from childProps
         let { asyncScriptOnLoad, forwardedRef, ...childProps } = this.props; // eslint-disable-line no-unused-vars
         if (globalName && typeof window !== "undefined") {

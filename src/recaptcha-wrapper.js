@@ -4,7 +4,7 @@ import ReCAPTCHA from './recaptcha';
 const callbackName = "onloadcallback";
 const globalName = "grecaptcha";
 
-function getOptions() {
+function getAttributes() {
   return (typeof window !== "undefined" && window.recaptchaOptions) || {};
 }
 function getRecaptchaUrl() {
@@ -19,8 +19,12 @@ function getURL(props) {
   return props.provider === 'hcaptcha' ? getHCaptchaUrl() : getRecaptchaUrl();
 }
 
-export default makeAsyncScriptLoader(getURL, {
-  callbackName,
-  globalName,
-  attributes: getOptions().nonce ? { nonce: getOptions().nonce } : {},
-})(ReCAPTCHA);
+function getOptions(props) {
+
+  return {
+    callbackName,
+    globalName: props.provider === 'hcaptcha' ? 'hcaptcha' : 'grecaptcha',
+    attributes: getAttributes().nonce ? { nonce: getAttributes().nonce } : {},
+  }
+}
+export default makeAsyncScriptLoader(getURL, getOptions)(ReCAPTCHA);
