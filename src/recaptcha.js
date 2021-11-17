@@ -8,27 +8,29 @@ export default class ReCAPTCHA extends React.Component {
     this.handleErrored = this.handleErrored.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRecaptchaRef = this.handleRecaptchaRef.bind(this);
-  }
 
+  }
+  getCaptcha() {
+    return this.props.provider === 'hcaptcha' ? this.props.hcaptcha : this.props.grecaptcha;
+  }
   getValue() {
-    if (this.props.grecaptcha && this._widgetId !== undefined) {
-      return this.props.grecaptcha.getResponse(this._widgetId);
+    if (this.getCaptcha() && this._widgetId !== undefined) {
+      return this.getCaptcha().getResponse(this._widgetId);
     }
     return null;
   }
 
   getWidgetId() {
-    if (this.props.grecaptcha && this._widgetId !== undefined) {
+    if (this.getCaptcha() && this._widgetId !== undefined) {
       return this._widgetId;
     }
     return null;
   }
 
   execute() {
-    const { grecaptcha } = this.props;
 
-    if (grecaptcha && this._widgetId !== undefined) {
-      return grecaptcha.execute(this._widgetId);
+    if (this.getCaptcha() && this._widgetId !== undefined) {
+      return this.getCaptcha().execute(this._widgetId);
     } else {
       this._executeRequested = true;
     }
@@ -43,14 +45,14 @@ export default class ReCAPTCHA extends React.Component {
   }
 
   reset() {
-    if (this.props.grecaptcha && this._widgetId !== undefined) {
-      this.props.grecaptcha.reset(this._widgetId);
+    if (this.getCaptcha() && this._widgetId !== undefined) {
+      this.getCaptcha().reset(this._widgetId);
     }
   }
 
   forceReset() {
-    if (this.props.grecaptcha) {
-      this.props.grecaptcha.reset();
+    if (this.getCaptcha()) {
+      this.getCaptcha().reset();
     }
   }
 
@@ -85,9 +87,9 @@ export default class ReCAPTCHA extends React.Component {
   }
 
   explicitRender() {
-    if (this.props.grecaptcha && this.props.grecaptcha.render && this._widgetId === undefined) {
+    if (this.getCaptcha() && this.getCaptcha().render && this._widgetId === undefined) {
       const wrapper = document.createElement("div");
-      this._widgetId = this.props.grecaptcha.render(wrapper, {
+      this._widgetId = this.getCaptcha().render(wrapper, {
         sitekey: this.props.sitekey,
         callback: this.handleChange,
         theme: this.props.theme,
@@ -103,7 +105,7 @@ export default class ReCAPTCHA extends React.Component {
       });
       this.captcha.appendChild(wrapper);
     }
-    if (this._executeRequested && this.props.grecaptcha && this._widgetId !== undefined) {
+    if (this._executeRequested && this.getCaptcha() && this._widgetId !== undefined) {
       this._executeRequested = false;
       this.execute();
     }
@@ -135,6 +137,7 @@ export default class ReCAPTCHA extends React.Component {
       size,
       stoken,
       grecaptcha,
+      hcaptcha,
       badge,
       hl,
       isolated,
@@ -151,6 +154,7 @@ ReCAPTCHA.propTypes = {
   sitekey: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   grecaptcha: PropTypes.object,
+  hcaptcha: PropTypes.object,
   theme: PropTypes.oneOf(["dark", "light"]),
   type: PropTypes.oneOf(["image", "audio"]),
   tabindex: PropTypes.number,
