@@ -31,7 +31,7 @@ export default function makeAsyncScript(getScriptURL, options) {
 
       setupScriptURL() {
         this.__scriptURL =
-          typeof getScriptURL === "function" ? getScriptURL(props) : getScriptURL;
+          typeof getScriptURL === "function" ? getScriptURL(this.props) : getScriptURL;
         return this.__scriptURL;
       }
 
