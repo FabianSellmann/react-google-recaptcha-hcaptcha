@@ -13,9 +13,7 @@ function getRecaptchaUrl() {
   return `https://${hostname}/recaptcha/api.js?onload=${callbackName}&render=explicit`;
 }
 function getHCaptchaUrl() {
-  const dynamicOptions = getOptions();
-  const hostname = dynamicOptions.useRecaptchaNet ? "recaptcha.net" : "www.google.com";
-  return `https://${hostname}/hcaptcha/1/api.js?onload=${callbackName}&render=explicit`;
+  return `https:/js.hcaptcha/1/api.js?onload=${callbackName}&render=explicit`;
 }
 function getURL(props) {
   return props.provider === 'hcaptcha' ? getHCaptchaUrl() : getRecaptchaUrl();
