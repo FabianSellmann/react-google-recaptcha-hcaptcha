@@ -2,13 +2,12 @@ import makeAsyncScriptLoader from './async-script-loader';
 import ReCAPTCHA from './recaptcha';
 
 const callbackName = "onloadcallback";
-const globalName = "grecaptcha";
 
 function getAttributes() {
   return (typeof window !== "undefined" && window.recaptchaOptions) || {};
 }
-function getRecaptchaUrl() {
-  const dynamicOptions = getOptions();
+function getRecaptchaUrl(props) {
+  const dynamicOptions = getOptions(props);
   const hostname = dynamicOptions.useRecaptchaNet ? "recaptcha.net" : "www.google.com";
   return `https://${hostname}/recaptcha/api.js?onload=${callbackName}&render=explicit`;
 }
@@ -16,7 +15,7 @@ function getHCaptchaUrl() {
   return `https://js.hcaptcha.com/1/api.js?onload=${callbackName}&render=explicit`;
 }
 function getURL(props) {
-  return props.provider === 'hcaptcha' ? getHCaptchaUrl() : getRecaptchaUrl();
+  return props.provider === 'hcaptcha' ? getHCaptchaUrl(props) : getRecaptchaUrl(props);
 }
 
 function getOptions(props) {
