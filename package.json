@@ -1,6 +1,6 @@
 {
   "name": "react-google-recaptcha-hcaptcha",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "React Component Wrapper for Google reCAPTCHA and hCaptcha",
   "main": "lib/index.js",
   "module": "lib/esm/index.js",
@@ -53,6 +53,7 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
+    "hoist-non-react-statics": "^3.3.2",
     "prop-types": "^15.5.0"
   }
 }
