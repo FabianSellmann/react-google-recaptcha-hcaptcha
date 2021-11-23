@@ -104,6 +104,11 @@ export default class ReCAPTCHA extends React.Component {
         isolated: this.props.isolated,
       });
       this.captcha.appendChild(wrapper);
+    } else if (!this._onReadySet && this.getCaptcha() && this.getCaptcha().ready) {
+      this._onReadySet = true;
+      this.getCaptcha().ready(() => {
+        this.explicitRender();
+      })
     }
     if (this._executeRequested && this.getCaptcha() && this._widgetId !== undefined) {
       this._executeRequested = false;
