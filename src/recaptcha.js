@@ -165,7 +165,7 @@ ReCAPTCHA.propTypes = {
   hl: PropTypes.string,
   badge: PropTypes.oneOf(["bottomright", "bottomleft", "inline"]),
   isolated: PropTypes.bool,
-  provider: PropTypes.oneOf(["recaptcha", "hcaptcha"])
+  provider: PropTypes.oneOf(["recaptcha", "hcaptcha", undefined])
 };
 ReCAPTCHA.defaultProps = {
   onChange: () => { },
